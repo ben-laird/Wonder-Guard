@@ -1,8 +1,8 @@
 {
   "nodeModulesDir": true,
   "tasks": {
-    "push": "cd experiments/prisma-client && deno run -A npm:prisma@latest db push",
-    "seed": "cd experiments/prisma-client && deno run -A prisma/scripts/seed.ts"
+    "push": "deno run -A scripts/push.ts",
+    "seed": "deno run -A scripts/seed.ts"
   },
   "imports": {
     "ex/": "./experiments/",
