@@ -4,7 +4,19 @@
       "name": "Prisma",
       "path": "experiments/prisma-client"
     },
+    {
+      "name": "JSON Db",
+      "path": "experiments/json-db"
+    },
+    {
+      "name": "Lib",
+      "path": "lib"
+    },
 
+    {
+      "name": "Scripts",
+      "path": "scripts"
+    },
     {
       "name": "~",
       "path": "."
