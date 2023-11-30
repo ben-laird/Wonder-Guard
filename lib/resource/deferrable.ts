@@ -1,5 +1,5 @@
 // deno-lint-ignore-file no-explicit-any no-namespace
-import { Action, Potential, PotentialFunction } from "./lib.types.ts";
+import { Action, Potential, PotentialFunction, ThisLike } from "./lib.types.ts";
 
 export namespace Deferrable {
   export interface Zig<T, U extends unknown[] = [], V extends unknown[] = []> {
@@ -9,14 +9,14 @@ export namespace Deferrable {
     >;
   }
 
-  export interface Interface<
+  export type Interface<
     T,
     U extends unknown[] = [],
     V extends unknown[] = []
-  > {
+  > = ThisLike<{
     init: PotentialFunction<T, U>;
     deInit: Action<T, void, V>;
-  }
+  }>;
 
   export interface Resource<
     T,

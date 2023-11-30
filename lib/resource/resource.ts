@@ -17,9 +17,7 @@ export class Resource<T, I extends unknown[] = [], D extends unknown[] = []> {
 
   constructor(params: Deferrable<T, I, D>);
   constructor(params: () => Deferrable<T, I, D>);
-  constructor(
-    params: MaybeEvaluate<Deferrable<T, I, D> & ThisType<Deferrable<T, I, D>>>
-  ) {
+  constructor(params: MaybeEvaluate<Deferrable<T, I, D>>) {
     this.struct = typeof params === "function" ? params() : params;
   }
 
@@ -51,7 +49,7 @@ export class Resource<T, I extends unknown[] = [], D extends unknown[] = []> {
 
   dupe = () => new Resource(this.struct);
 
-  query(params: { init: I; deInit: D }) {
+  query = (params: { init: I; deInit: D }) => {
     const { init, deInit } = this;
 
     const q: Query<T> = async (action) => {
@@ -92,24 +90,7 @@ export class Resource<T, I extends unknown[] = [], D extends unknown[] = []> {
     };
 
     return q;
-  }
-
-  middleware<S, U extends unknown[] = [], V extends unknown[] = []>(mw: {
-    init: Action<T, S, U>;
-    deInit: Action<S, void, V>;
-  }) {
-    const { init, deInit } = this;
-
-    return new Resource({
-      async init(...params: [I, U]) {
-        return await mw.init(await init(...params[0]), ...params[1]);
-      },
-      async deInit(Re, ...params: [D, V]) {
-        await mw.deInit(Re, ...params[1]);
-        await deInit(...params[0]);
-      },
-    });
-  }
+  };
 }
 
 Deno.test({
